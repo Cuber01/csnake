@@ -1,48 +1,85 @@
 #include<stdio.h>
-
+#include <stdlib.h>
 
 const int MapHeight = 24;
 const int MapWidth = 80;
+const char* clean = "033[23";
 
-// typedef struct {
-//      int row[10];
-// } row_t;
+const char groundIcon = '.';
+const char appleIcon = '@';
 
-// row_t aaa[10];
+typedef struct {
+    int x;
+    int y;
+} point_t;
 
-void draw( int Map[MapHeight][MapWidth] ) 
+void draw( char Map[MapWidth][MapHeight] ) 
 {
-
-    int x, y;
-
-    for (x = 0; x < MapWidth; x++) 
+    
+    for (int y = 0; y < MapHeight; y++) 
     {
-        for (y = 0; y < MapHeight; y++) 
+        for (int x = 0; x < MapWidth; x++) 
         {
-            printf(".");
+            printf("%c", Map[x][y]);
         };
+        printf("\r\n");
     };
 
-};
+}
+
+void clear(char Map[MapWidth][MapHeight])
+{
+    
+    for ( int y = 0; y < MapHeight; y++) 
+    {
+        for (int x = 0; x < MapWidth; x++ ) 
+        {
+            Map[x][y] = groundIcon;
+        };
+    };   
+
+}
+
+void modifyMap(char Map[MapWidth][MapHeight], point_t applePos)
+{
+
+    for ( int y = 0; y < MapHeight; y++) 
+    {
+        for (int x = 0; x < MapWidth; x++ ) 
+        {
+            if (x == applePos.x && y == applePos.y)
+            {
+                Map[x][y] = appleIcon;
+            }
+        };
+    };  
+
+
+}
+
+
+
+point_t calculateApplePos()
+{
+    int apple_x = rand() % MapWidth + 0;
+    int apple_y = rand() % MapHeight + 0;
+
+    return (point_t){ .x = apple_x, .y = apple_y};
+}
 
 int main()
 {
    
-    int Map[MapHeight][MapWidth];
-    
-    int x, y;
+    char Map[MapWidth][MapHeight];
+    srand(time(NULL));
+ 
+    clear(Map);
 
-    for (x = 0; x >= MapWidth; ++x) 
-    {
-        for (y = 0; y >= MapHeight; ++y) 
-        {
-            Map[y][x] = 0;
-        };
-    };
+    modifyMap(Map, calculateApplePos());
 
     draw(Map);
 
     return(0);
 
-};
+}
 
