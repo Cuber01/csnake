@@ -4,6 +4,7 @@
 #include <time.h>
 
 #include "main.h"
+#include "keyboard.h"
 
 const int MapHeight = 24;
 const int MapWidth = 80;
@@ -62,7 +63,7 @@ void update(char Map[MapWidth][MapHeight], point_t applePos, char input)
     };  
 
     Map[snake_x][snake_y] = snakeIcon;
-    //printf(input);
+
     if (input == 'a') {
          snake_x += 1;
     }
@@ -70,13 +71,17 @@ void update(char Map[MapWidth][MapHeight], point_t applePos, char input)
 
 }
 
-char getInput()
+char getInput(void)
 {
-    char c = getch();
-    return c;
+    char key = keyboard_getkey();
+    
+    if( key != NO_KEY ){
+            return key;        
+    }
+
 }
 
-point_t calculateApplePos()
+point_t calculateApplePos(void)
 {
     int apple_x = rand() % MapWidth + 0;
     int apple_y = rand() % MapHeight + 0;
@@ -93,22 +98,22 @@ void run(char Map[MapWidth][MapHeight]){
         update(Map, calculateApplePos(), getInput());
         draw(Map);
 
-        sleep(1);
+        napms(100);
 
     }
 
 }
 
-int main()
+int main(void)
 {
 
-    initscr();	
+    initscr();
+    keyboard_init();
+    
 
     char Map[MapWidth][MapHeight];
     srand(time(NULL));
     run(Map);
-
-    
 
     return 0;
 
