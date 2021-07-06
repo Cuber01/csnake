@@ -5,6 +5,7 @@
 
 #include "main.h"
 #include "keyboard.h"
+#include "utils.h"
 
 const int MapHeight = 24;
 const int MapWidth = 80;
@@ -15,16 +16,55 @@ const char appleIcon = '@';
 const char snakeIcon = '#';
 
 int game = 1;
+int frameDelay = 100;
 
 point_t snakePos = {20,20};
 int snake_vel_x = 1;
 int snake_vel_y = 0;
 
-point_t apples = {};
-point_t snakeParts = {};
+int appleNumber = 0;
+int snakeElementNumber = 0;
 
-void draw( char Map[MapWidth][MapHeight] ) 
+const maxApples = 10;
+const maxSnakes = 1900;
+
+
+
+void handleInput(char input); 
+void clearArray(char Map[MapWidth][MapHeight]);
+
+
+void PlaceApple(point_t applePos, point_t apples[maxApples])
 {
+    if (appleNumber <= maxApples) {
+
+        apples[appleNumber] = applePos; 
+        appleNumber += 1;
+
+    }  
+}
+
+
+point_t calculateApplePos(void)
+{
+    int apple_x = rand() % MapWidth + 0;
+    int apple_y = rand() % MapHeight + 0;
+
+    return (point_t){ .x = apple_x, .y = apple_y };
+}
+
+
+void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] ) 
+{
+    
+    Map[snakePos.x][snakePos.y] = snakeIcon;
+
+
+    for (int i = 0; i < appleNumber; i++) 
+    {   
+        Map[apples[i].x][apples[i].y] = appleIcon;   
+    }
+
     
     for (int y = 0; y < MapHeight; y++) 
     {
@@ -37,6 +77,32 @@ void draw( char Map[MapWidth][MapHeight] )
 
 }
 
+
+void update(char Map[MapWidth][MapHeight], char input, point_t apples[maxApples])
+{
+
+    PlaceApple(calculateApplePos(), apples);
+
+    handleInput(input);
+
+    snakePos.x += snake_vel_x;
+    snakePos.y += snake_vel_y;
+
+
+}
+
+
+char getInput(void)
+{
+    char key = keyboard_getkey();
+    
+    if( key != NO_KEY ) {
+            return key;        
+    }
+
+}
+
+
 void clearArray(char Map[MapWidth][MapHeight])
 {
     
@@ -47,30 +113,6 @@ void clearArray(char Map[MapWidth][MapHeight])
             Map[x][y] = groundIcon;
         };
     };   
-
-}
-
-void update(char Map[MapWidth][MapHeight], point_t applePos, char input)
-{
-
-    for ( int y = 0; y < MapHeight; y++) 
-    {
-        for (int x = 0; x < MapWidth; x++ ) 
-        {
-            if (x == applePos.x && y == applePos.y)
-            {
-                Map[x][y] = appleIcon;
-            }
-        };
-    };  
-
-    handleInput(input);
-
-    snakePos.x += snake_vel_x;
-    snakePos.y += snake_vel_y;
-
-    Map[snakePos.x][snakePos.y] = snakeIcon;
-
 
 }
 
@@ -100,38 +142,22 @@ void handleInput(char input)
             snake_vel_y = 1;
             snake_vel_x = 0;
 
-    }
+    } 
 
 }
 
-char getInput(void)
-{
-    char key = keyboard_getkey();
-    
-    if( key != NO_KEY ) {
-            return key;        
-    }
 
-}
-
-point_t calculateApplePos(void)
-{
-    int apple_x = rand() % MapWidth + 0;
-    int apple_y = rand() % MapHeight + 0;
-
-    return (point_t){ .x = apple_x, .y = apple_y };
-}
-
-void run(char Map[MapWidth][MapHeight]){
+void run(char Map[MapWidth][MapHeight], point_t apples[maxApples]){
 
     while (game) {
        
         clearArray(Map);
+        //initscr();
         
-        update(Map, calculateApplePos(), getInput());
-        draw(Map);
+        update(Map, getInput(), apples);
+        draw(Map, apples);
 
-        napms(100);
+        napms(frameDelay);
 
     }
 
@@ -142,11 +168,14 @@ int main(void)
 
     initscr();
     keyboard_init();
+
+    point_t apples[maxApples];
+    point_t* snakeParts[maxSnakes];
     
 
     char Map[MapWidth][MapHeight];
     srand(time(NULL));
-    run(Map);
+    run(Map, apples);
 
     return 0;
 
