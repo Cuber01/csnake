@@ -2,15 +2,16 @@
 #include <stdlib.h>
 #include "main.h"
 
-int appleNumber = 0;
+int appleNumber = -1;
 const int maxApples = 10;
 
 void PlaceApple(point_t applePos, point_t apples[maxApples])
 {
     if (appleNumber <= maxApples) {
 
-        apples[appleNumber] = applePos; 
         appleNumber += 1;
+        apples[appleNumber] = applePos; 
+        
 
     }  
 }

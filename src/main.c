@@ -9,7 +9,12 @@
 
 const int MapHeight = 24;
 const int MapWidth = 80;
+
 const char* clean = "033[23";
+const char* red = "\033[0;31m";
+const char* green = "\033[0;32m";
+const char* white = "\033[0;37m";
+const char* reset = "\033[0m";
 
 const char groundIcon = '.';
 const char appleIcon = '@';
@@ -34,11 +39,12 @@ void clearArray(char Map[MapWidth][MapHeight]);
 
 void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] ) 
 {
+    char* currentColor = white;
     
     Map[snakePos.x][snakePos.y] = snakeIcon;
 
 
-    for (int i = 0; i < appleNumber; i++) 
+    for (int i = 0; i <= appleNumber; i++) 
     {   
         Map[apples[i].x][apples[i].y] = appleIcon;   
     }
@@ -46,9 +52,21 @@ void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] )
     
     for (int y = 0; y < MapHeight; y++) 
     {
+
         for (int x = 0; x < MapWidth; x++) 
         {
+
+
+            //if (Map[x][y] == appleIcon) { //TODO COLOR
+            //    currentColor = red;
+            //} else if (Map[x][y] == snakeIcon) {
+            //    currentColor = green;
+            //} 
+
+            //printf(currentColor);
             printf("%c", Map[x][y]);
+            //printf(reset);
+            
         };
         printf("\r\n");
     };
@@ -59,12 +77,22 @@ void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] )
 void update(char Map[MapWidth][MapHeight], char input, point_t apples[maxApples])
 {
 
-    PlaceApple(calculateApplePos(), apples);
+    //PlaceApple(calculateApplePos(), apples);
 
     handleInput(input);
 
     snakePos.x += snake_vel_x;
     snakePos.y += snake_vel_y;
+
+    for ( int i = 0; i <= appleNumber; i++)
+    {
+        if (apples[i].x == snakePos.x && apples[i].y == snakePos.y) 
+        {
+            PlaceApple(calculateApplePos(), apples);
+        }
+    } 
+
+
 
 
 }
@@ -126,6 +154,8 @@ void handleInput(char input)
 
 
 void run(char Map[MapWidth][MapHeight], point_t apples[maxApples]){
+
+    PlaceApple(calculateApplePos(), apples);
 
     while (game) {
        
