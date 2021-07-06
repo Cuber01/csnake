@@ -5,7 +5,7 @@
 
 #include "main.h"
 #include "keyboard.h"
-#include "utils.h"
+#include "apples.h"
 
 const int MapHeight = 24;
 const int MapWidth = 80;
@@ -22,36 +22,14 @@ point_t snakePos = {20,20};
 int snake_vel_x = 1;
 int snake_vel_y = 0;
 
-int appleNumber = 0;
+
 int snakeElementNumber = 0;
 
-const maxApples = 10;
+
 const maxSnakes = 1900;
-
-
 
 void handleInput(char input); 
 void clearArray(char Map[MapWidth][MapHeight]);
-
-
-void PlaceApple(point_t applePos, point_t apples[maxApples])
-{
-    if (appleNumber <= maxApples) {
-
-        apples[appleNumber] = applePos; 
-        appleNumber += 1;
-
-    }  
-}
-
-
-point_t calculateApplePos(void)
-{
-    int apple_x = rand() % MapWidth + 0;
-    int apple_y = rand() % MapHeight + 0;
-
-    return (point_t){ .x = apple_x, .y = apple_y };
-}
 
 
 void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] ) 

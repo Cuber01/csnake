@@ -2,6 +2,8 @@
 #include <curses.h>
 #include "keyboard.h"
 
+
+
 void keyboard_init(){
 
     initscr(); 

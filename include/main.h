@@ -1,6 +1,9 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
+extern const int MapWidth;
+extern const int MapHeight;
+
 typedef struct {
     int x;
     int y;
