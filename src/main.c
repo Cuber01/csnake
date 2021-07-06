@@ -20,13 +20,13 @@ const char groundIcon = '.';
 const char appleIcon = '@';
 const char snakeIcon = '#';
 
+
 int game = 1;
 int frameDelay = 100;
 
 point_t snakePos = {20,20};
 int snake_vel_x = 1;
 int snake_vel_y = 0;
-
 
 int snakeElementNumber = 0;
 
@@ -37,16 +37,20 @@ void handleInput(char input);
 void clearArray(char Map[MapWidth][MapHeight]);
 
 
-void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] ) 
+
+void draw( char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES] ) 
 {
     char* currentColor = white;
     
     Map[snakePos.x][snakePos.y] = snakeIcon;
 
 
-    for (int i = 0; i <= appleNumber; i++) 
+    for (int i = 0; i < MAX_APPLES; i++) 
     {   
-        Map[apples[i].x][apples[i].y] = appleIcon;   
+        if ( apples[i].x != -1)
+        {
+            Map[apples[i].x][apples[i].y] = appleIcon; 
+        }
     }
 
     
@@ -74,28 +78,26 @@ void draw( char Map[MapWidth][MapHeight], point_t apples[maxApples] )
 }
 
 
-void update(char Map[MapWidth][MapHeight], char input, point_t apples[maxApples])
+void update(char Map[MapWidth][MapHeight], char input, point_t apples[MAX_APPLES])
 {
 
-    //PlaceApple(calculateApplePos(), apples);
 
     handleInput(input);
 
     snakePos.x += snake_vel_x;
     snakePos.y += snake_vel_y;
 
-    for ( int i = 0; i <= appleNumber; i++)
+    for ( int i = 0; i < MAX_APPLES; i++)
     {
         if (apples[i].x == snakePos.x && apples[i].y == snakePos.y) 
         {
-            PlaceApple(calculateApplePos(), apples);
+            appleDelete(apples[i]);
+            appleAdd(calculateApplePos());
         }
     } 
 
-
-
-
 }
+
 
 
 char getInput(void)
@@ -153,9 +155,10 @@ void handleInput(char input)
 }
 
 
-void run(char Map[MapWidth][MapHeight], point_t apples[maxApples]){
-
-    PlaceApple(calculateApplePos(), apples);
+void run(char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES]){
+    
+    applesClear();
+    appleAdd(calculateApplePos());
 
     while (game) {
        
@@ -177,7 +180,7 @@ int main(void)
     initscr();
     keyboard_init();
 
-    point_t apples[maxApples];
+    
     point_t* snakeParts[maxSnakes];
     
 
