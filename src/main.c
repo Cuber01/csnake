@@ -6,44 +6,38 @@
 #include "main.h"
 #include "keyboard.h"
 #include "apples.h"
-
-const int MapHeight = 24;
-const int MapWidth = 80;
-
-const char* clean = "033[23";
-const char* red = "\033[0;31m";
-const char* green = "\033[0;32m";
-const char* white = "\033[0;37m";
-const char* reset = "\033[0m";
-
-const char groundIcon = '.';
-const char appleIcon = '@';
-const char snakeIcon = '#';
-
+#include "snake.h"
+#include "map.h"
 
 int game = 1;
 int frameDelay = 100;
 
-point_t snakePos = {20,20};
-int snake_vel_x = 1;
-int snake_vel_y = 0;
+// const char groundIcon = '.';
+const char appleIcon = '@';
+const char snakeIcon = '#';
 
-int snakeElementNumber = 0;
+int applesEaten;
+int framesSurvived;
 
-
-const maxSnakes = 1900;
 
 void handleInput(char input); 
-void clearArray(char Map[MapWidth][MapHeight]);
+void clearArray(char Map[MAPWIDTH][MAPHEIGHT]);
 
 
+unsigned int time_counter=0;
 
-void draw( char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES] ) 
+void draw( char Map[MAPWIDTH][MAPHEIGHT], point_t apples[MAX_APPLES] ) 
 {
-    char* currentColor = white;
+    //char* currentColor = white;
     
-    Map[snakePos.x][snakePos.y] = snakeIcon;
+    //Map[snakePos.x][snakePos.y] = snakeIcon;
 
+
+    //snakeDraw( Map );
+
+    int x = 3;
+    int y = 12;
+    Map[y][x] = 'X';
 
     for (int i = 0; i < MAX_APPLES; i++) 
     {   
@@ -53,44 +47,59 @@ void draw( char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES] )
         }
     }
 
-    
-    for (int y = 0; y < MapHeight; y++) 
-    {
-
-        for (int x = 0; x < MapWidth; x++) 
+    for (int i = 0; i < MAX_SNAKES; i++) 
+    {   
+        if ( snake.snakeParts[i].x != -1)
         {
+            Map[snake.snakeParts[i].x][snake.snakeParts[i].y] = snakeIcon; 
+        }
+    }
+
+   // printf("\r\ntime:%d\r\n", time_counter++);
+   // printf("\r\ny\\x:0123456789012345678901234567890123456789\r\n");
+
+   // mapDraw();
+
+    // for (int y = 0; y < MAPHEIGHT; y++) 
+    // {
+    //     printf("%02d :",  y);
+    //     for (int x = 0; x < MAPWIDTH; x++) 
+    //     {
 
 
-            //if (Map[x][y] == appleIcon) { //TODO COLOR
-            //    currentColor = red;
-            //} else if (Map[x][y] == snakeIcon) {
-            //    currentColor = green;
-            //} 
+    //         //if (Map[x][y] == appleIcon) { //TODO COLOR
+    //         //    currentColor = red;
+    //         //} else if (Map[x][y] == snakeIcon) {
+    //         //    currentColor = green;
+    //         //} 
 
-            //printf(currentColor);
-            printf("%c", Map[x][y]);
-            //printf(reset);
+    //         //printf(currentColor);
+    //         printf("%c", Map[x][y]);
+    //         //printf(reset);
             
-        };
-        printf("\r\n");
-    };
+    //     };
+    //     printf("\r\n");
+    // };
+
 
 }
 
-
-void update(char Map[MapWidth][MapHeight], char input, point_t apples[MAX_APPLES])
+//void update(char Map[MAPWIDTH][MAPHEIGHT], char input, point_t apples[MAX_APPLES])
+void update(char input, point_t apples[MAX_APPLES])
 {
-
 
     handleInput(input);
 
-    snakePos.x += snake_vel_x;
-    snakePos.y += snake_vel_y;
+    // snakePos.x += snake_vel_x;
+    // snakePos.y += snake_vel_y;
+
+    point_t snake_head = SnakeGet();
 
     for ( int i = 0; i < MAX_APPLES; i++)
     {
-        if (apples[i].x == snakePos.x && apples[i].y == snakePos.y) 
+        if (apples[i].x == snake_head.x && apples[i].y == snake_head.y) 
         {
+            applesEaten += 1;
             appleDelete(apples[i]);
             appleAdd(calculateApplePos());
         }
@@ -108,21 +117,23 @@ char getInput(void)
             return key;        
     }
 
+    return NO_KEY;
+
 }
 
 
-void clearArray(char Map[MapWidth][MapHeight])
-{
+// void clearArray(char Map[MAPWIDTH][MAPHEIGHT])
+// {
     
-    for ( int y = 0; y < MapHeight; y++) 
-    {
-        for (int x = 0; x < MapWidth; x++ ) 
-        {
-            Map[x][y] = groundIcon;
-        };
-    };   
+//     for ( int y = 0; y < MAPHEIGHT; y++) 
+//     {
+//         for (int x = 0; x < MAPWIDTH; x++ ) 
+//         {
+//             Map[x][y] = groundIcon;
+//         };
+//     };   
 
-}
+// }
 
 void handleInput(char input) 
 {
@@ -130,44 +141,49 @@ void handleInput(char input)
     {
         snake_vel_x = -1;
         snake_vel_y = 0;
+        snakeMove( LEFT, 0 );
 
     } else if (input == 'd')
     {
 
-          snake_vel_x = 1;
-          snake_vel_y = 0;
+        snake_vel_x = 1;
+        snake_vel_y = 0;
+        snakeMove( RIGHT, 0 );
 
     } else if (input == 'w')
     {
 
-          snake_vel_y = -1;
-          snake_vel_x = 0;
-
+        snake_vel_y = -1;
+        snake_vel_x = 0;
+        snakeMove( UP, 0 );
     
     } else if (input == 's')
     {
 
-            snake_vel_y = 1;
-            snake_vel_x = 0;
-
+        snake_vel_y = 1;
+        snake_vel_x = 0;
+        snakeMove( DOWN, 0 );
     } 
-
+    
 }
 
 
-void run(char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES]){
+void run(char Map[MAPWIDTH][MAPHEIGHT], point_t apples[MAX_APPLES]){
     
     applesClear();
+    snakeClear();
     appleAdd(calculateApplePos());
 
     while (game) {
        
-        clearArray(Map);
-        //initscr();
+//        clearArray(Map);
         
-        update(Map, getInput(), apples);
+        //update(Map, getInput(), apples);
+        update(getInput(), apples);
+
         draw(Map, apples);
 
+        framesSurvived += 1;
         napms(frameDelay);
 
     }
@@ -176,17 +192,22 @@ void run(char Map[MapWidth][MapHeight], point_t apples[MAX_APPLES]){
 
 int main(void)
 {
-
-    initscr();
-    keyboard_init();
+    mapClear();
+    mapSet(0,0, 'A');
+    mapSet(MAPWIDTH-1, 0, 'B');
+    mapSet(0, MAPHEIGHT-1, 'C');
+    mapSet(MAPWIDTH-1,MAPHEIGHT-1, 'D');
 
     
-    point_t* snakeParts[maxSnakes];
-    
+    printf("%c",mapGet(MAPWIDTH-1, 0));
+    printf("%c",mapGet(0, MAPHEIGHT-1));
 
-    char Map[MapWidth][MapHeight];
-    srand(time(NULL));
-    run(Map, apples);
+    mapDraw();
+    // initscr();
+    // keyboard_init();
+  
+    // srand(time(NULL));
+    // run(Map, apples);
 
     return 0;
 

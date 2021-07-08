@@ -1,21 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 #include "main.h"
 #include "apples.h"
 
-
 #define RV_ERROR 1
 #define RV_OK 0
 
+
+
 point_t apples[MAX_APPLES];
+int appleMultiplier = 1;
 
 point_t calculateApplePos(void)
 {
-    int apple_x = rand() % MapWidth + 0;
-    int apple_y = rand() % MapHeight + 0;
+    int apple_x = rand() % MAPWIDTH + 0;
+    int apple_y = rand() % MAPHEIGHT + 0;
 
     return (point_t){ .x = apple_x, .y = apple_y };
 }
@@ -30,7 +32,7 @@ void applesClear()
 
 int appleAdd(point_t applePos)
 {
-
+    
     for (int i = 0; i < MAX_APPLES; i++)
     {
         if (apples[i].x == -1)

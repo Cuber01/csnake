@@ -1,10 +1,19 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-extern const int MapWidth;
-extern const int MapHeight;
 
+// settings
+#define  MAPHEIGHT  (10)
+#define  MAPWIDTH   (40)
 
+// consts
+#define clean  "\033[23"
+#define red    "\033[0;31m"
+#define green  "\033[0;32m"
+#define white  "\033[0;37m"
+#define reset  "\033[0m"
+
+ 
 typedef struct {
     int x;
     int y;
