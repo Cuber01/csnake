@@ -31,7 +31,7 @@ typedef enum {
 void snakeInit(void);
 void snakeClear(void);
 void snakeMove( direction_t direction, bool grow );
-void snakeDraw( char Map[MAPWIDTH][MAPHEIGHT] );
+void snakeDraw(void);
 point_t SnakeGet(void);
 
 #endif

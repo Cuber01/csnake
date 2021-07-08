@@ -31,6 +31,8 @@ void cb_clear( void );
 return_t cb_add( CBUFFER_TYPE value );
 return_t cb_del( void );
 CBUFFER_TYPE cb_get_head( void );
+void cb_iterate_reset( void );
+int cb_iterate_get( CBUFFER_TYPE* value_ref );
 
 
 #endif

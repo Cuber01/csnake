@@ -33,54 +33,27 @@ void draw( char Map[MAPWIDTH][MAPHEIGHT], point_t apples[MAX_APPLES] )
     //Map[snakePos.x][snakePos.y] = snakeIcon;
 
 
-    //snakeDraw( Map );
+    snakeDraw(  );
 
-    int x = 3;
-    int y = 12;
-    Map[y][x] = 'X';
 
-    for (int i = 0; i < MAX_APPLES; i++) 
-    {   
-        if ( apples[i].x != -1)
-        {
-            Map[apples[i].x][apples[i].y] = appleIcon; 
-        }
-    }
 
-    for (int i = 0; i < MAX_SNAKES; i++) 
-    {   
-        if ( snake.snakeParts[i].x != -1)
-        {
-            Map[snake.snakeParts[i].x][snake.snakeParts[i].y] = snakeIcon; 
-        }
-    }
-
-   // printf("\r\ntime:%d\r\n", time_counter++);
-   // printf("\r\ny\\x:0123456789012345678901234567890123456789\r\n");
-
-   // mapDraw();
-
-    // for (int y = 0; y < MAPHEIGHT; y++) 
-    // {
-    //     printf("%02d :",  y);
-    //     for (int x = 0; x < MAPWIDTH; x++) 
+    // for (int i = 0; i < MAX_APPLES; i++) 
+    // {   
+    //     if ( apples[i].x != -1)
     //     {
+    //         Map[apples[i].x][apples[i].y] = appleIcon; 
+    //     }
+    // }
 
+    // for (int i = 0; i < MAX_SNAKES; i++) 
+    // {   
+    //     if ( snake.snakeParts[i].x != -1)
+    //     {
+    //         Map[snake.snakeParts[i].x][snake.snakeParts[i].y] = snakeIcon; 
+    //     }
+    // }
 
-    //         //if (Map[x][y] == appleIcon) { //TODO COLOR
-    //         //    currentColor = red;
-    //         //} else if (Map[x][y] == snakeIcon) {
-    //         //    currentColor = green;
-    //         //} 
-
-    //         //printf(currentColor);
-    //         printf("%c", Map[x][y]);
-    //         //printf(reset);
-            
-    //     };
-    //     printf("\r\n");
-    // };
-
+   mapDraw();
 
 }
 
@@ -90,20 +63,17 @@ void update(char input, point_t apples[MAX_APPLES])
 
     handleInput(input);
 
-    // snakePos.x += snake_vel_x;
-    // snakePos.y += snake_vel_y;
+    // point_t snake_head = SnakeGet();
 
-    point_t snake_head = SnakeGet();
-
-    for ( int i = 0; i < MAX_APPLES; i++)
-    {
-        if (apples[i].x == snake_head.x && apples[i].y == snake_head.y) 
-        {
-            applesEaten += 1;
-            appleDelete(apples[i]);
-            appleAdd(calculateApplePos());
-        }
-    } 
+    // for ( int i = 0; i < MAX_APPLES; i++)
+    // {
+    //     if (apples[i].x == snake_head.x && apples[i].y == snake_head.y) 
+    //     {
+    //         applesEaten += 1;
+    //         appleDelete(apples[i]);
+    //         appleAdd(calculateApplePos());
+    //     }
+    // } 
 
 }
 
@@ -171,12 +141,12 @@ void handleInput(char input)
 void run(char Map[MAPWIDTH][MAPHEIGHT], point_t apples[MAX_APPLES]){
     
     applesClear();
-    snakeClear();
+    snakeInit();
     appleAdd(calculateApplePos());
 
     while (game) {
        
-//        clearArray(Map);
+        mapClear();
         
         //update(Map, getInput(), apples);
         update(getInput(), apples);
@@ -192,22 +162,12 @@ void run(char Map[MAPWIDTH][MAPHEIGHT], point_t apples[MAX_APPLES]){
 
 int main(void)
 {
-    mapClear();
-    mapSet(0,0, 'A');
-    mapSet(MAPWIDTH-1, 0, 'B');
-    mapSet(0, MAPHEIGHT-1, 'C');
-    mapSet(MAPWIDTH-1,MAPHEIGHT-1, 'D');
-
+    initscr();
+    keyboard_init();
     
-    printf("%c",mapGet(MAPWIDTH-1, 0));
-    printf("%c",mapGet(0, MAPHEIGHT-1));
-
-    mapDraw();
-    // initscr();
-    // keyboard_init();
   
-    // srand(time(NULL));
-    // run(Map, apples);
+    srand(time(NULL));
+    run(Map, apples);
 
     return 0;
 

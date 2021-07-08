@@ -7,15 +7,15 @@
 #define  MAPWIDTH   (40)
 
 // consts
-#define clean  "\033[23"
-#define red    "\033[0;31m"
-#define green  "\033[0;32m"
-#define white  "\033[0;37m"
-#define reset  "\033[0m"
+#define ANSI_CLEAN  "\033[2J"
+#define ANSI_RED    "\033[0;31m"
+#define ANSI_GREEN  "\033[0;32m"
+#define ANSI_WHITE  "\033[0;37m"
+#define ANSI_RESET  "\033[0m"
 
  
 typedef struct {
-    int x;
+    int x; 
     int y;
 } point_t;
 

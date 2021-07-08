@@ -6,6 +6,7 @@
 #include "main.h"
 #include "snake.h"
 #include "cyclic_buffer.h"
+#include "map.h"
 
 int snake_vel_x = 1;
 int snake_vel_y = 0;
@@ -20,38 +21,62 @@ point_t SnakeGet(void){
     return cb_get_head();
 }
 
-void snakeDraw( char Map[MAPWIDTH][MAPHEIGHT] ){
-    Map[10][10] = '!';
+void snakeDraw(void){
+    point_t point;
+    int rv;
+
+    cb_iterate_reset();
+    while(1){
+          rv = cb_iterate_get( &point );
+          if( rv ) break;
+          mapSet( point.x, point.y, '#' );
+    }
+    
 }
 
 void snakeInit(void){
     cb_clear();
-    cb_add( (point_t){ .x = 10, .y = 10 } );
+
+    cb_add( (point_t){ .x = 9, .y = 3 } );
+    cb_add( (point_t){ .x = 8, .y = 3 } );    
+    cb_add( (point_t){ .x = 7, .y = 3 } );
+    cb_add( (point_t){ .x = 6, .y = 3 } );    
+    cb_add( (point_t){ .x = 5, .y = 3 } );        
+    cb_add( (point_t){ .x = 5, .y = 4 } );
+    cb_add( (point_t){ .x = 5, .y = 5 } );    
+    cb_add( (point_t){ .x = 5, .y = 6 } );        
+    cb_add( (point_t){ .x = 5, .y = 6 } );
+    cb_add( (point_t){ .x = 4, .y = 6 } );    
+    cb_add( (point_t){ .x = 3, .y = 6 } );        
+    
+
 }
 
 void snakeMove( direction_t direction, bool grow ){
     
-    //point_t current_postition = cb_get_head();
+    point_t current_postition = cb_get_head();
 
-    point_t next_position;
+    //point_t next_position;
+
     switch( direction ){
         case LEFT:
-        //uzupelniec
+            current_postition.x -= 1;
         break;
         case RIGHT:
-        //uzupelniec
+            current_postition.x += 1;
         break;
         case UP:
-        //uzupelniec
+            current_postition.y -= 1;
         break;
         case DOWN:
-        //uzupelniec
+            current_postition.y += 1;
         break;        
         default:
-            printf("DUPA");        
+            printf("/r/nError");
+            exit(1);
     };
 
-    cb_add( next_position );
+    cb_add( current_postition );
     if( !grow ){
         cb_del();
     }

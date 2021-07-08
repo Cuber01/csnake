@@ -106,8 +106,31 @@ return_t cb_del( void ){
 
 }
 
+static int current_index;
+
+void cb_iterate_reset( void ){
+    current_index = cyclic_buffer.state.head_index;
+}
+
+int cb_iterate_get( CBUFFER_TYPE* value_ref ){
+
+    *value_ref = cyclic_buffer.buffer[current_index];
+
+    current_index--;
+    if( current_index == cyclic_buffer.state.tail_index ){
+        return true;
+    };
+
+    return false;
+
+}
+
 CBUFFER_TYPE cb_get_head( void ){
     return ( cyclic_buffer.buffer[cyclic_buffer.state.head_index]  );
+}
+
+CBUFFER_TYPE cb_get_tail( void ){
+    return ( cyclic_buffer.buffer[cyclic_buffer.state.tail_index]  );
 }
 
 
