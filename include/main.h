@@ -2,8 +2,8 @@
 #define __MAIN_H
 
 // settings
-#define MAPHEIGHT (10)
-#define MAPWIDTH (40)
+#define MAP_HEIGHT (10)
+#define MAP_WIDTH (40)
 
 // consts
 #define ANSI_CLEAN "\033[2J"

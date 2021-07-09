@@ -16,8 +16,8 @@ int appleMultiplier = 1;
 
 point_t calculateApplePos(void)
 {
-    int apple_x = rand() % MAPWIDTH + 0;
-    int apple_y = rand() % MAPHEIGHT + 0;
+    int apple_x = rand() % MAP_WIDTH + 0;
+    int apple_y = rand() % MAP_HEIGHT + 0;
 
     return (point_t){ .x = apple_x, .y = apple_y };
 }

@@ -3,10 +3,3 @@ Snake in C
 Dependencies:
 * libncurses5-dev
 * libncursesw5-dev
-
-
-## TODO
-
-- [ ] uzupełnić map.c
-- [ ] przetestować map.c
-- [ ] wywalić Map z argumentów w main.C

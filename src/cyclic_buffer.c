@@ -76,12 +76,12 @@ return_t cbDel(void)
 
 }
 
-void cb_iterate_reset(void)
+void cbIterateReset(void)
 {
     current_index = cyclic_buffer.state.head_index;
 }
 
-int cb_iterate_get(CBUFFER_TYPE *value_ref)
+int cbIterateGet(CBUFFER_TYPE *value_ref)
 {
 
     *value_ref = cyclic_buffer.buffer[current_index];
@@ -95,12 +95,12 @@ int cb_iterate_get(CBUFFER_TYPE *value_ref)
     return false;
 }
 
-CBUFFER_TYPE cb_get_head(void)
+CBUFFER_TYPE cbGetHead(void)
 {
     return (cyclic_buffer.buffer[cyclic_buffer.state.head_index]);
 }
 
-CBUFFER_TYPE cb_get_tail(void)
+CBUFFER_TYPE cbGetTail(void)
 {
     return (cyclic_buffer.buffer[cyclic_buffer.state.tail_index]);
 }

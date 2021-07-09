@@ -8,14 +8,14 @@
 
 static void checkParameters(uint8_t x, uint8_t y, char *file, uint32_t line);
 
-char Map[MAPWIDTH][MAPHEIGHT];
+char Map[MAP_WIDTH][MAP_HEIGHT];
 
 void mapClear(void)
 {
 
-    for (int y = 0; y < MAPHEIGHT; y++)
+    for (int y = 0; y < MAP_HEIGHT; y++)
     {
-        for (int x = 0; x < MAPWIDTH; x++)
+        for (int x = 0; x < MAP_WIDTH; x++)
         {
             Map[x][y] = GROUND_ICON;
         };
@@ -31,15 +31,15 @@ void mapDraw(void)
 
     printf("\r\ntime:%d\r\n", time_counter++);
     printf("\r\ny\\x:0123456789012345678901234567890123456789\r\n");
-    for (int y = 0; y < MAPHEIGHT; y++)
+    for (int y = 0; y < MAP_HEIGHT; y++)
     {
         printf("%02d :", y);
-        for (int x = 0; x < MAPWIDTH; x++)
+        for (int x = 0; x < MAP_WIDTH; x++)
         {
 
-            //if (Map[x][y] == appleIcon) { //TODO COLOR
+            //if (Map[x][y] == APPLE_ICON) { //TODO COLOR
             //    currentColor = red;
-            //} else if (Map[x][y] == snakeIcon) {
+            //} else if (Map[x][y] == SNAKE_ICON) {
             //    currentColor = green;
             //}
 
@@ -67,7 +67,7 @@ char mapGet(uint8_t x, uint8_t y)
 static void checkParameters(uint8_t x, uint8_t y, char *file, uint32_t line)
 {
 
-    if (x > MAPWIDTH - 1 || y > MAPHEIGHT - 1)
+    if (x > MAP_WIDTH - 1 || y > MAP_HEIGHT - 1)
     {
         printf("ERROR %s:%d", file, line);
         exit(1);

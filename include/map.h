@@ -4,7 +4,7 @@
 #include "main.h"
 #include <stdint.h>
 
-extern char Map[MAPWIDTH][MAPHEIGHT];
+extern char Map[MAP_WIDTH][MAP_HEIGHT];
 
 void mapClear(void);
 void mapDraw(void);

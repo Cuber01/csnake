@@ -28,6 +28,7 @@ typedef enum
     RIGHT,
     UP,
     DOWN,
+    NONE,
 } direction_t;
 
 void snakeInit(void);
