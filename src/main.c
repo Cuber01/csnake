@@ -11,6 +11,10 @@
 #include "map.h"
 #include "cyclic_buffer.h"
 
+
+        // *adres -> value od adresu
+        //  &value -> adres zmiennej value
+
 int game = 1;
 int frameDelay = 100;
 
@@ -123,7 +127,7 @@ void run(char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES]){
 
         draw(Map, apples);
 
-        framesSurvived += 1;
+        framesSurvived++;
         napms(frameDelay);
 
     }

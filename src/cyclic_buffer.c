@@ -11,7 +11,7 @@ struct
     CBUFFER_TYPE buffer[CB_BUFFER_SIZE];
 } cyclic_buffer;
 
-static int current_index;
+static unsigned int current_index;
 
 #ifdef UNIT_TESTS
 
@@ -104,5 +104,4 @@ CBUFFER_TYPE cbGetTail(void)
 {
     return (cyclic_buffer.buffer[cyclic_buffer.state.tail_index]);
 }
-
 

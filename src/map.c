@@ -22,14 +22,15 @@ void mapClear(void)
     };
 }
 
-static unsigned int time_counter = 0;
+
 
 void mapDraw(void)
 {
 
     printf(ANSI_CLEAN);
 
-    printf("\r\ntime:%d\r\n", time_counter++);
+    printf("\r\ntime:%d\r\n", framesSurvived);
+    printf("\r\napples:%d\r\n", applesEaten);
     printf("\r\ny\\x:0123456789012345678901234567890123456789\r\n");
     for (int y = 0; y < MAP_HEIGHT; y++)
     {

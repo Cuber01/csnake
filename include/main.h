@@ -12,6 +12,9 @@
 #define ANSI_WHITE "\033[0;37m"
 #define ANSI_RESET "\033[0m"
 
+extern int applesEaten;
+extern int framesSurvived;
+
 typedef struct
 {
     int x;

@@ -11,6 +11,8 @@
 int snake_vel_x = 1;
 int snake_vel_y = 0;
 
+bool snakeCollision( point_t value, bool head_omit);
+
 void snakeClear(void)
 {
     snakeInit();
@@ -34,6 +36,7 @@ void snakeDraw(void)
         rv = cbIterateGet(&point);
         if (rv)
             break;
+            
         mapSet(point.x, point.y, '#');
     }
 
@@ -50,41 +53,56 @@ void snakeInit(void)
 
 }
 
-void snakeMove(direction_t direction, bool grow)
+void snakeMove(direction_t direction, bool grow )
 {
-    
+    static direction_t current_direction = NONE;
 
     point_t current_postition = cbGetHead();
+    point_t next_postition = current_postition;
+
+    if( direction == NONE ){
+        direction = current_direction;
+    }
 
     switch (direction)
     {
     case LEFT:
-        snake_vel_x = -1;
-        snake_vel_y = 0;
+        next_postition.x -= 1;        
+        // snake_vel_x = -1;
+        // snake_vel_y = 0;
         break;
     case RIGHT:
-        snake_vel_x = 1;
-        snake_vel_y = 0;
+        next_postition.x += 1;
+        // snake_vel_x = 1;
+        // snake_vel_y = 0;
         break;
     case UP:
-        snake_vel_y = -1;
-        snake_vel_x = 0;
+        next_postition.y -= 1;
+        // snake_vel_y = -1;
+        // snake_vel_x = 0;
         break;
     case DOWN:
-        snake_vel_y = 1;
-        snake_vel_x = 0;
+        next_postition.y += 1;    
+        // snake_vel_y = 1;
+        // snake_vel_x = 0;
         break;
-    case NONE:
+    case NONE:    
         break;
     default:
         printf("/r/nError");
         exit(1);
     };
 
-    current_postition.x += snake_vel_x;
-    current_postition.y += snake_vel_y;
+    if( current_direction != NONE ){
+        bool col = snakeCollision( next_postition, false );
 
-    cbAdd(current_postition);
+        if (col)
+        {
+              exit(0);
+        }    
+    }
+
+    cbAdd(next_postition);
 
 
     if (!grow)
@@ -92,6 +110,33 @@ void snakeMove(direction_t direction, bool grow)
         cbDel();
     } 
         
+    current_direction = direction;
     
-    
+}
+
+bool snakeCollision( point_t value, bool head_omit )
+{
+    point_t current_value;
+    bool stop;       
+    bool head_flag = head_omit;
+
+    cbIterateReset();
+
+    while (1)
+    {
+        stop = cbIterateGet( &current_value );
+        if( stop ){
+            return false;
+        }
+        if( ! head_flag ){
+            if( current_value.x == value.x && current_value.y == value.y) 
+            {
+                return true;
+            } 
+            head_flag = false;
+        }
+
+    }
+
+    return false;
 }
