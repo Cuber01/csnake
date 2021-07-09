@@ -91,47 +91,33 @@ char getInput(void)
 
 }
 
-
-// void clearArray(char Map[MAPWIDTH][MAPHEIGHT])
-// {
-    
-//     for ( int y = 0; y < MAPHEIGHT; y++) 
-//     {
-//         for (int x = 0; x < MAPWIDTH; x++ ) 
-//         {
-//             Map[x][y] = groundIcon;
-//         };
-//     };   
-
-// }
-
 void handleInput(char input) 
 {
     if (input == 'a') 
     {
-        snake_vel_x = -1;
-        snake_vel_y = 0;
+      //  snake_vel_x = -1;
+       // snake_vel_y = 0;
         snakeMove( LEFT, 0 );
 
     } else if (input == 'd')
     {
 
-        snake_vel_x = 1;
-        snake_vel_y = 0;
+//        snake_vel_x = 1;
+      //  snake_vel_y = 0;
         snakeMove( RIGHT, 0 );
 
     } else if (input == 'w')
     {
 
-        snake_vel_y = -1;
-        snake_vel_x = 0;
+       // snake_vel_y = -1;
+      //  snake_vel_x = 0;
         snakeMove( UP, 0 );
     
     } else if (input == 's')
     {
 
-        snake_vel_y = 1;
-        snake_vel_x = 0;
+      //  snake_vel_y = 1;
+       // snake_vel_x = 0;
         snakeMove( DOWN, 0 );
     } 
     

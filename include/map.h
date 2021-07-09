@@ -8,7 +8,7 @@ extern char Map[MAPWIDTH][MAPHEIGHT];
 
 void mapClear(void);
 void mapDraw(void);
-void mapSet( uint8_t x, uint8_t y, char value );
-char mapGet( uint8_t x, uint8_t y );
+void mapSet(uint8_t x, uint8_t y, char value);
+char mapGet(uint8_t x, uint8_t y);
 
 #endif

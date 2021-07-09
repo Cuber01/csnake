@@ -13,27 +13,30 @@
 #define CB_BUFFER_SIZE 1900
 #endif
 
-typedef struct {
+typedef struct
+{
     uint32_t head_index;
-    uint32_t tail_index;    
+    uint32_t tail_index;
 } buffer_state_t;
 
-typedef enum {
+typedef enum
+{
     RV_SUCCESS = 0,
-    RV_ERROR   = 0xFFFF
+    RV_ERROR = 0xFFFF
 } return_t;
 
 #ifdef UNIT_TESTS
-void cb_dump( void );
+    void cb_dump(void);
 #endif
 
-void cb_clear( void );
-return_t cb_add( CBUFFER_TYPE value );
-return_t cb_del( void );
-CBUFFER_TYPE cb_get_head( void );
-void cb_iterate_reset( void );
-int cb_iterate_get( CBUFFER_TYPE* value_ref );
+void cbClear(void);
 
+return_t cbAdd(CBUFFER_TYPE value);
+return_t cbDel(void);
+
+CBUFFER_TYPE cb_get_head(void);
+
+void cb_iterate_reset(void);
+int cb_iterate_get(CBUFFER_TYPE *value_ref);
 
 #endif
-// en of file ---
