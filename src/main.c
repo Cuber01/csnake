@@ -143,6 +143,8 @@ int main(void)
     srand(time(NULL));
     run(Map, apples);
 
+    printf("Game over, bumped into self");
+
     return 0;
 
 }

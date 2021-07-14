@@ -14,6 +14,7 @@
 
 extern int applesEaten;
 extern int framesSurvived;
+extern int game;
 
 typedef struct
 {

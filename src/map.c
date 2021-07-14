@@ -4,7 +4,7 @@
 #include "main.h"
 #include "map.h"
 
-#define GROUND_ICON '.'
+#define GROUND_ICON ' '
 
 static void checkParameters(uint8_t x, uint8_t y, char *file, uint32_t line);
 
@@ -70,7 +70,7 @@ static void checkParameters(uint8_t x, uint8_t y, char *file, uint32_t line)
 
     if (x > MAP_WIDTH - 1 || y > MAP_HEIGHT - 1)
     {
-        printf("ERROR %s:%d", file, line);
-        exit(1);
+        printf("Game over, bumped into wall");
+        exit(0);
     }
 }
