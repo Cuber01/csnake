@@ -4,6 +4,8 @@
 #include "main.h"
 #include <stdint.h>
 
+#define APPLE_ICON '@'
+
 extern char Map[MAP_WIDTH][MAP_HEIGHT];
 
 void mapClear(void);

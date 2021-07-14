@@ -19,9 +19,6 @@ int game = 1;
 int frameDelay = 100;
 
 
-#define APPLE_ICON '@';
-#define SNAKE_ICON '#';
-
 int applesEaten;
 int framesSurvived;
 
