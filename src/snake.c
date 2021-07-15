@@ -68,23 +68,15 @@ void snakeMove(direction_t direction, bool grow )
     {
     case LEFT:
         next_postition.x -= 1;        
-        // snake_vel_x = -1;
-        // snake_vel_y = 0;
         break;
     case RIGHT:
         next_postition.x += 1;
-        // snake_vel_x = 1;
-        // snake_vel_y = 0;
         break;
     case UP:
         next_postition.y -= 1;
-        // snake_vel_y = -1;
-        // snake_vel_x = 0;
         break;
     case DOWN:
         next_postition.y += 1;    
-        // snake_vel_y = 1;
-        // snake_vel_x = 0;
         break;
     case NONE:    
         break;
@@ -98,7 +90,7 @@ void snakeMove(direction_t direction, bool grow )
 
         if (col)
         {
-              exit(0);
+              game = 0;
         }    
     }
 

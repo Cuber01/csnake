@@ -1,9 +1,12 @@
 #ifndef __SNAKE_H
 #define __SNAKE_H
 
+#include <stdint.h>
 #include "main.h"
 
+
 #define MAX_SNAKES 1900
+#define SNAKE_ICON '#'
 
 extern point_t snakeParts[MAX_SNAKES];
 

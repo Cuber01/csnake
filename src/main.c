@@ -19,9 +19,6 @@ int game = 1;
 int frameDelay = 100;
 
 
-#define APPLE_ICON '@';
-#define SNAKE_ICON '#';
-
 int applesEaten;
 int framesSurvived;
 
@@ -142,6 +139,8 @@ int main(void)
   
     srand(time(NULL));
     run(Map, apples);
+
+    printf("Game over, bumped into self");
 
     return 0;
 
