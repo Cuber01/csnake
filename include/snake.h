@@ -1,9 +1,8 @@
 #ifndef __SNAKE_H
 #define __SNAKE_H
 
-#include <stdint.h>
 #include "main.h"
-
+#include <stdint.h>
 
 #define MAX_SNAKES 1900
 #define SNAKE_ICON '#'
@@ -19,11 +18,11 @@ typedef struct
     uint32_t tail_index;
 } snakeElementState;
 
-struct
+typedef struct
 {
     snakeElementState state;
     point_t snakeParts[MAX_SNAKES];
-} snake;
+} snake_t;
 
 typedef enum
 {

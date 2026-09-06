@@ -9,8 +9,6 @@
 #define RV_ERROR 1
 #define RV_OK 0
 
-
-
 point_t apples[MAX_APPLES];
 int appleMultiplier = 1;
 
@@ -62,7 +60,6 @@ int appleDelete(point_t applePos)
 
 int appleContains(point_t applePos)
 {
-
     for (uint16_t i = 0; i < MAX_APPLES; i++)
     {
         if (apples[i].x == applePos.x && apples[i].y == applePos.y)

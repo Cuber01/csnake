@@ -14,7 +14,6 @@ char Map[MAP_WIDTH][MAP_HEIGHT];
 
 void mapClear(void)
 {
-
     for (int y = 0; y < MAP_HEIGHT; y++)
     {
         for (int x = 0; x < MAP_WIDTH; x++)
@@ -24,11 +23,8 @@ void mapClear(void)
     };
 }
 
-
-
 void mapDraw(void)
 {
-
     char* currentColor = ANSI_WHITE;
     printf(ANSI_CLEAN);
 
@@ -67,10 +63,8 @@ char mapGet(uint8_t x, uint8_t y)
     return (Map[x][y]);
 }
 
-// private
 static void checkParameters(uint8_t x, uint8_t y)
 {
-
     if (x > MAP_WIDTH - 1 || y > MAP_HEIGHT - 1)
     {
         printf("Game over, bumped into wall");

@@ -11,27 +11,19 @@
 #include "map.h"
 #include "cyclic_buffer.h"
 
-
-        // *adres -> value od adresu
-        //  &value -> adres zmiennej value
-
 int game = 1;
 int frameDelay = 100;
-
 
 int applesEaten;
 int framesSurvived;
 
-
 void handleInput(char input, bool grow); 
 void clearArray(char Map[MAP_WIDTH][MAP_HEIGHT]);
-
 
 unsigned int time_counter=0;
 
 void draw( char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES] ) 
 {
-
     snakeDraw();
 
     for (int i = 0; i < MAX_APPLES; i++) 
@@ -43,13 +35,11 @@ void draw( char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES] )
     }
 
    mapDraw();
-
 }
 
 
 void update(char input, point_t apples[MAX_APPLES])
 {
-
     point_t snake_postition = cbGetHead();
     bool grow = false;
 
@@ -64,13 +54,8 @@ void update(char input, point_t apples[MAX_APPLES])
         } 
     } 
 
-    
-
     handleInput(input, grow);
-
 }
-
-
 
 char getInput(void)
 {
@@ -81,12 +66,10 @@ char getInput(void)
     }
 
     return NO_KEY;
-
 }
 
 void handleInput(char input, bool grow) 
 {
-    
     if (input == 'a') 
     {
         snakeMove( LEFT, grow );
@@ -106,18 +89,16 @@ void handleInput(char input, bool grow)
     {
         snakeMove( NONE, grow );
     }
-    
 }
 
 
-void run(char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES]){
-    
+void run(char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES])
+{
     applesClear();
     snakeInit();
     appleAdd(calculateApplePos());
 
     while (game) {
-       
         mapClear();
         
         update(getInput(), apples);
@@ -126,7 +107,6 @@ void run(char Map[MAP_WIDTH][MAP_HEIGHT], point_t apples[MAX_APPLES]){
 
         framesSurvived++;
         napms(frameDelay);
-
     }
 
 }
@@ -135,7 +115,6 @@ int main(void)
 {
     initscr();
     keyboard_init();
-    
   
     srand(time(NULL));
     run(Map, apples);
@@ -143,7 +122,6 @@ int main(void)
     printf("Game over, bumped into self");
 
     return 0;
-
 }
 
 

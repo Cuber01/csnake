@@ -27,7 +27,6 @@ void snakeDraw(void)
 {
     point_t point;
     int rv;
-    
 
     cbIterateReset();
 
@@ -50,7 +49,6 @@ void snakeInit(void)
     cbAdd((point_t){.x = 8, .y = 3});
     cbAdd((point_t){.x = 7, .y = 3});
     cbAdd((point_t){.x = 6, .y = 3});
-
 }
 
 void snakeMove(direction_t direction, bool grow )
